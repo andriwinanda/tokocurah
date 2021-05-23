@@ -1,0 +1,20 @@
+/* Custom color theme properties */
+:root {
+  --f7-theme-color: #2d964d;
+  --f7-theme-color-rgb: 45, 150, 77;
+  --f7-theme-color-shade: #24773d;
+  --f7-theme-color-tint: #36b55d;
+  --f7-card-margin-horizontal: 0;
+  --f7-card-header-padding-vertical: 16px;
+}
+.swiper-slide {
+  background: #738223;
+  text-align: center;
+}
+.demo-card-header-pic {
+  img{
+    width: 100%;
+  }
+}
+
+/* Your app custom styles here */

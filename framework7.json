@@ -1,0 +1,26 @@
+{
+  "cwd": "/home/andri/Documents/WebDev/Toko Curah",
+  "type": [
+    "pwa"
+  ],
+  "name": "Toko Curah",
+  "framework": "vue",
+  "template": "single-view",
+  "bundler": "webpack",
+  "cssPreProcessor": "scss",
+  "theming": {
+    "customColor": true,
+    "color": "#2d964d",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false,
+  "webpack": {
+    "developmentSourceMap": true,
+    "productionSourceMap": true,
+    "hashAssets": false,
+    "preserveAssetsPaths": false,
+    "inlineAssets": true
+  }
+}
