@@ -1,28 +1,17 @@
 <template>
-  <f7-page name="Pencarian">
-    <f7-navbar back-link="">
-      <f7-searchbar
-        :value="f7route.params.keyword"
-        inline
-        @input="searchVal = $event.target.value"
-        v-on:keyup.enter="search()"
-        custom-search
-        :disable-button="false"
-      ></f7-searchbar>
-      <f7-nav-right>
-        <f7-link href="/" icon-f7="house_fill" color="gray"></f7-link>
-      </f7-nav-right>
+  <f7-page name="Kategori" :page-content="false">
+    <f7-navbar :sliding="false" :hidden="false" back-link="">
+      <f7-nav-title class="capitalized">{{ detail.name }}</f7-nav-title>
+      <f7-nav-right> </f7-nav-right>
     </f7-navbar>
+
     <f7-page
       infinite
       :infinite-distance="50"
       :infinite-preloader="showPreloader"
+      @infinite="loadMore"
     >
       <f7-block class="margin-top-half">
-        <small
-          >Hasil penelusuran dari
-          <strong>{{ f7route.params.keyword }}</strong></small
-        >
         <div class="row">
           <div class="col-50" v-for="product in products" :key="product.id">
             <f7-link :href="`/product/${product.id}`">
@@ -60,21 +49,23 @@ export default {
   data() {
     return {
       products: [],
-      searchVal: "",
+      category: "",
+      detail: {},
       showPreloader: true,
       productOffset: 0,
       productRecord: 0,
     };
   },
   methods: {
-    getListProduct(val) {
+    getListProduct() {
       let params = {
-        filter: val,
+        category: this.category,
+        publish: "",
         limit: limit,
         offset: this.productOffset,
       };
       axios
-        .post(`https://api.tokocurah.com/product/search`, params)
+        .post("https://api.tokocurah.com/product/", params)
         .then((res) => {
           let data = res.data.content;
           if (data.result.length) {
@@ -100,6 +91,13 @@ export default {
         this.getListProduct();
       }
     },
+    getCategory() {
+      axios
+        .get(`https://api.tokocurah.com/category/get/${this.category}`)
+        .then((res) => {
+          this.detail = res.data.content;
+        });
+    },
     numeric(val) {
       var formatter = new Intl.NumberFormat("ID", {
         style: "currency",
@@ -111,13 +109,11 @@ export default {
       });
       return formatter.format(val);
     },
-    search() {
-      this.f7router.navigate(`/search/${this.searchVal}`);
-    },
   },
   mounted() {
-    this.searchVal = this.f7route.params.keyword;
-    this.getListProduct(this.f7route.params.keyword);
+    this.category = this.f7route.params.category;
+    this.getListProduct(this.f7route.params.category);
+    this.getCategory();
   },
 };
 </script>

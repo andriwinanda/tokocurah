@@ -1,37 +1,58 @@
 <template>
-  <f7-page name="home">
+  <f7-page name="home" :page-content="true">
     <!-- Top Navbar -->
     <f7-navbar>
       <f7-nav-left>
         <!-- <f7-nav-title sliding>Toko Curah</f7-nav-title> -->
-      <f7-searchbar inline @input="searchVal=$event.target.value" v-on:keyup.enter="search" custom-search :disable-button="false"></f7-searchbar>
       </f7-nav-left>
+      <f7-nav-title>
+        <f7-searchbar
+          inline
+          @input="searchVal = $event.target.value"
+          v-on:keyup.enter="search"
+          custom-search
+          :disable-button="false"
+        ></f7-searchbar>
+      </f7-nav-title>
       <f7-nav-right>
         <f7-link icon-f7="cart_fill" color="gray"></f7-link>
         <f7-link icon-f7="person_fill" color="gray"></f7-link>
       </f7-nav-right>
     </f7-navbar>
-    <!-- Slider-->
-    <f7-swiper pagination :speed="500">
-      <f7-swiper-slide>
-        <img src="../assets/Banner.jpg" alt="" />
-      </f7-swiper-slide>
-      <f7-swiper-slide>
-        <img src="../assets/Banner.jpg" alt="" />
-      </f7-swiper-slide>
-      <f7-swiper-slide>
-        <img src="../assets/Banner.jpg" alt="" />
-      </f7-swiper-slide>
-    </f7-swiper>
 
-    <f7-block>
-      <div class="row no-gap">
-        <div class="col-25">
-          <f7-link>
-            <img src="../assets/kategori/image3.png" alt="" />
-          </f7-link>
-        </div>
-        <div class="col-25">
+    <f7-page
+      infinite
+      :infinite-distance="50"
+      :infinite-preloader="showPreloader"
+      @infinite="loadMore"
+    >
+      <!-- Slider-->
+      <f7-swiper pagination :speed="500">
+        <f7-swiper-slide>
+          <img src="../assets/Banner.jpg" alt="" />
+        </f7-swiper-slide>
+        <f7-swiper-slide>
+          <img src="../assets/Banner.jpg" alt="" />
+        </f7-swiper-slide>
+        <f7-swiper-slide>
+          <img src="../assets/Banner.jpg" alt="" />
+        </f7-swiper-slide>
+      </f7-swiper>
+
+      <f7-block>
+        <div class="row no-gap">
+          <div
+            class="col-25"
+            bg-color="white"
+            v-for="item in category"
+            :key="item.id"
+          >
+            <f7-link :href="`/category/${item.id}`">
+              <img :src="item.image" alt="" />
+              <p class="capitalized">{{ item.name }}</p>
+            </f7-link>
+          </div>
+          <!-- <div class="col-25">
           <f7-link>
             <img src="../assets/kategori/image4.png" alt="" />
           </f7-link>
@@ -46,8 +67,6 @@
             <img src="../assets/kategori/image6.png" alt="" />
           </f7-link>
         </div>
-      </div>
-      <div class="row no-gap">
         <div class="col">
           <f7-link>
             <img src="../assets/kategori/image7.png" alt="" />
@@ -67,65 +86,113 @@
           <f7-link>
             <img src="../assets/kategori/image10.png" alt="" />
           </f7-link>
+        </div> -->
         </div>
-      </div>
-    </f7-block>
-
-    <f7-block-title>Promo Hari Ini</f7-block-title>
-    <f7-block>
-      <div class="row">
-        <div class="col-50" v-for="product in products" :key="product.id">
-          <f7-link :href="`/product/${product.id}`">
-            <div class="card demo-card-header-pic">
-              <div class="card-header">
-                <img :src="product.image" alt="" />
+      </f7-block>
+      <f7-block-title>Produk Terbaru</f7-block-title>
+      <f7-block>
+        <div class="row">
+          <div class="col-50" v-for="product in products" :key="product.id">
+            <f7-link :href="`/product/${product.id}`">
+              <div class="card demo-card-header-pic">
+                <div class="card-header">
+                  <img height="100" :src="product.image" alt="" />
+                </div>
+                <div class="card-content card-content-padding">
+                  <p class="productTitle">
+                    {{ product.name }}<br />
+                    <strong>{{numeric(product.price)}} </strong
+                    ><br />
+                    <small v-if="product.discount">
+                      <strike>Rp 48.000</strike> &#9899; <span>50% OFF</span>
+                    </small>
+                  </p>
+                  <small>&starf;&starf;&starf;&starf; 12345</small>
+                </div>
               </div>
-              <div class="card-content card-content-padding">
-                <p class="productTitle">
-                  {{product.name}}<br />
-                  <strong>Rp {{product.price}}</strong><br />
-                  <small v-if="product.discount">
-                    <strike>Rp 48.000</strike> &#9899; <span>50% OFF</span>
-                  </small>
-                </p>
-                <small>&starf;&starf;&starf;&starf; 12345</small>
-              </div>
-            </div>
-          </f7-link>
+            </f7-link>
+          </div>
         </div>
-      
-      </div>
-    </f7-block>
+      </f7-block>
+    </f7-page>
   </f7-page>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 
+const limit = 4;
 export default {
-   props: {
+  props: {
     f7route: Object,
     f7router: Object,
   },
-  data(){
-    return{
-      products:[],
-      searchVal: ""
-    }
+  data() {
+    return {
+      products: [],
+      category: [],
+      searchVal: "",
+      showPreloader: true,
+      productOffset: 0,
+      productRecord: 0,
+    };
   },
-  methods:{
-    getListProduct(){
+  methods: {
+    getListProduct() {
+      let params = {
+        category: "",
+        publish: "",
+        limit: limit,
+        offset: this.productOffset,
+      };
       axios
-        .get("https://api.tokocurah.com/product/")
-        .then(res => {
-          this.products = res.data.content.result
+        .post("https://api.tokocurah.com/product/", params)
+        .then((res) => {
+          let data = res.data.content;
+          if (data.result.length) {
+            data.result.map((el) => {
+              this.products.push(el);
+            });
+          } else this.products = [];
+          this.productRecord = data.record || 0;
+          this.showPreloader = false;
         })
+        .catch((err) => {
+          this.showPreloader = false;
+        });
     },
-    search(){
-      this.f7router.navigate(`/search/${this.searchVal}`)
-    }
+    getCategory() {
+      axios.get("https://api.tokocurah.com/category/").then((res) => {
+        this.category = res.data.content.result;
+      });
+    },
+    search() {
+      this.f7router.navigate(`/search/${this.searchVal}`);
+    },
+    loadMore() {
+      if (
+        !this.showPreloader &&
+        this.productRecord &&
+        this.products.length < this.productRecord
+      ) {
+        this.productOffset += limit;
+        this.getListProduct();
+      }
+    },
+    numeric(val) {
+      var formatter = new Intl.NumberFormat("ID", {
+        style: "currency",
+        currency: "IDR",
+
+        // These options are needed to round to whole numbers if that's what you want.
+        minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+      });
+      return formatter.format(val);
+    },
   },
   mounted() {
-    this.getListProduct()
-  }
-}
+    this.getListProduct();
+    this.getCategory();
+  },
+};
 </script>

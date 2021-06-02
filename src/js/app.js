@@ -19,9 +19,9 @@ import App from '../components/app.vue';
 
 import axios from 'axios'
 
+
 // Init Framework7-Vue Plugin
 Framework7.use(Framework7Vue);
-
 // Prototype
 Object.defineProperties(Framework7.prototype, {
     // Custom header axios

@@ -2,6 +2,7 @@
 import HomePage from '../pages/home.vue';
 import Product from '../pages/product.vue';
 import Search from '../pages/search.vue';
+import Category from '../pages/category.vue';
 import AboutPage from '../pages/about.vue';
 import FormPage from '../pages/form.vue';
 
@@ -37,6 +38,7 @@ var routes = [
   {
     path: '/',
     component: HomePage,
+    reloadCurrent: true //Reload current for reload current page
   },
   {
     path: '/product/:id',
@@ -45,6 +47,10 @@ var routes = [
   {
     path: '/search/:keyword',
     component: Search,
+  },
+  {
+    path: '/category/:category',
+    component: Category,
   },
   {
     path: '/about/',
