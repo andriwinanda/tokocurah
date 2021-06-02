@@ -7,6 +7,7 @@
   --f7-card-margin-horizontal: 0;
   --f7-card-margin-vertical: 8px;
   --f7-card-header-padding-vertical: 16px;
+  --f7-toolbar-height:60px
 }
 .swiper-slide {
   background: #738223;
@@ -16,6 +17,14 @@
   img{
     width: 100%;
   }
+}
+.productTitle{
+  text-transform: capitalize;
+  margin-bottom: 0;
+}
+.price{
+  font-size: 18pt;
+  margin: 0;
 }
 
 /* Your app custom styles here */
