@@ -17,6 +17,7 @@
       infinite
       :infinite-distance="50"
       :infinite-preloader="showPreloader"
+      @infinite="loadMore"
     >
       <f7-block class="margin-top-half">
         <small
@@ -33,13 +34,14 @@
                 <div class="card-content card-content-padding">
                   <p class="productTitle" color-theme="red">
                     {{ product.name }}<br />
-                    <strong>{{numeric(product.price)}} </strong
-                    ><br />
+                    <strong>{{ numeric(product.price) }} </strong><br />
                     <small v-if="product.discount">
                       <strike>Rp 48.000</strike> &#9899; <span>50% OFF</span>
                     </small>
                   </p>
-                  <small color-theme="red">&starf;&starf;&starf;&starf; 12345</small>
+                  <small color-theme="red"
+                    >&starf;&starf;&starf;&starf; 12345</small
+                  >
                 </div>
               </div>
             </f7-link>
@@ -51,7 +53,7 @@
 </template>
 <script>
 import axios from "axios";
-const limit = 100;
+const limit = 6;
 export default {
   props: {
     f7route: Object,

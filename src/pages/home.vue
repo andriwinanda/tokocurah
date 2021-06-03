@@ -28,15 +28,18 @@
     >
       <!-- Slider-->
       <f7-swiper pagination :speed="500">
-        <f7-swiper-slide>
+        <f7-swiper-slide v-for="slide in slider" :key="slide.id">
+          <f7-link :href="slide.id">
+          <img height="180" :src="slide.image" alt="" />
+
+          </f7-link>
+        </f7-swiper-slide>
+        <!-- <f7-swiper-slide>
           <img src="../assets/Banner.jpg" alt="" />
         </f7-swiper-slide>
         <f7-swiper-slide>
           <img src="../assets/Banner.jpg" alt="" />
-        </f7-swiper-slide>
-        <f7-swiper-slide>
-          <img src="../assets/Banner.jpg" alt="" />
-        </f7-swiper-slide>
+        </f7-swiper-slide> -->
       </f7-swiper>
 
       <f7-block>
@@ -47,9 +50,9 @@
             v-for="item in category"
             :key="item.id"
           >
-            <f7-link :href="`/category/${item.id}`">
+            <f7-link color="black" :href="`/category/${item.id}`" class="align-content-center">
               <img :src="item.image" alt="" />
-              <p class="capitalized">{{ item.name }}</p>
+              <!-- <small class="capitalized">{{ item.name }}</small> -->
             </f7-link>
           </div>
           <!-- <div class="col-25">
@@ -130,6 +133,7 @@ export default {
     return {
       products: [],
       category: [],
+      slider:[],
       searchVal: "",
       showPreloader: true,
       productOffset: 0,
@@ -142,7 +146,7 @@ export default {
         category: "",
         publish: "",
         limit: limit,
-        offset: this.productOffset,
+        offset: this.productOffset,  
       };
       axios
         .post("https://api.tokocurah.com/product/", params)
@@ -163,6 +167,11 @@ export default {
     getCategory() {
       axios.get("https://api.tokocurah.com/category/").then((res) => {
         this.category = res.data.content.result;
+      });
+    },
+    getSlider() {
+      axios.get("https://api.tokocurah.com/slider").then((res) => {
+        this.slider = res.data.content.result;
       });
     },
     search() {
@@ -193,6 +202,7 @@ export default {
   mounted() {
     this.getListProduct();
     this.getCategory();
+    this.getSlider()
   },
 };
 </script>
