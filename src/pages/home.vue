@@ -93,13 +93,13 @@
       <f7-block>
         <div class="row">
           <div class="col-50" v-for="product in products" :key="product.id">
-            <f7-link :href="`/product/${product.id}`">
+            <f7-link :href="`/product/${product.id}`" color="black">
               <div class="card demo-card-header-pic">
                 <div class="card-header">
                   <img height="100" :src="product.image" alt="" />
                 </div>
                 <div class="card-content card-content-padding">
-                  <p class="productTitle">
+                  <p class="productTitle" color-theme="red">
                     {{ product.name }}<br />
                     <strong>{{numeric(product.price)}} </strong
                     ><br />
@@ -107,7 +107,7 @@
                       <strike>Rp 48.000</strike> &#9899; <span>50% OFF</span>
                     </small>
                   </p>
-                  <small>&starf;&starf;&starf;&starf; 12345</small>
+                  <small color-theme="red">&starf;&starf;&starf;&starf; 12345</small>
                 </div>
               </div>
             </f7-link>

@@ -43,6 +43,7 @@ var routes = [
   {
     path: '/product/:id',
     component: Product,
+    reloadCurrent: true //Reload current for reload current page
   },
   {
     path: '/search/:keyword',
