@@ -45,7 +45,7 @@
       <f7-block>
         <div class="row no-gap">
           <div
-            class="col-25"
+            class="col-25 text-align-center"
             bg-color="white"
             v-for="item in category"
             :key="item.id"
