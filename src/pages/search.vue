@@ -27,7 +27,7 @@
         <div class="row">
           <div class="col-50" v-for="product in products" :key="product.id">
             <f7-link :href="`/product/${product.id}`" color="black">
-              <div class="card demo-card-header-pic">
+              <div class="card demo-card-header-pic margin-vertical">
                 <div class="card-header">
                   <img height="100" :src="product.image" alt="" />
                 </div>

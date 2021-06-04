@@ -41,9 +41,9 @@
           <img src="../assets/Banner.jpg" alt="" />
         </f7-swiper-slide> -->
       </f7-swiper>
-      <f7-row bg-color="white">
-
-      <f7-block>
+      <f7-block bg-color="white" class="no-margin padding-vertical">
+      <f7-block-title>Kategori Produk</f7-block-title>
+      <f7-block class="no-margin">
         <div class="row no-gap">
           <div
             class="col-25 text-align-center"
@@ -58,13 +58,13 @@
           </div>
          </div>
       </f7-block>
-      </f7-row >
+      </f7-block >
       <f7-block-title>Produk Terbaru</f7-block-title>
       <f7-block>
         <div class="row">
           <div class="col-50" v-for="product in products" :key="product.id">
             <f7-link :href="`/product/${product.id}`" color="black">
-              <div class="card demo-card-header-pic">
+              <div class="card demo-card-header-pic margin-vertical">
                 <div class="card-header">
                   <img height="100" :src="product.image" alt="" />
                 </div>
