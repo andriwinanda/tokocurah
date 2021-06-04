@@ -40,7 +40,7 @@
 </template>
 <script>
 import axios from "axios";
-const limit = 100;
+const limit = 6;
 export default {
   props: {
     f7route: Object,

@@ -3,10 +3,10 @@
     <!-- Top Navbar -->
     <f7-navbar>
       <f7-nav-left>
-        <!-- <f7-nav-title sliding>Toko Curah</f7-nav-title> -->
+        <img width="70" src="../assets/logo.png" alt="" />
       </f7-nav-left>
       <f7-nav-title>
-        <f7-searchbar
+        <f7-searchbar 
           inline
           @input="searchVal = $event.target.value"
           v-on:keyup.enter="search"
@@ -41,6 +41,7 @@
           <img src="../assets/Banner.jpg" alt="" />
         </f7-swiper-slide> -->
       </f7-swiper>
+      <f7-row bg-color="white">
 
       <f7-block>
         <div class="row no-gap">
@@ -55,43 +56,9 @@
               <!-- <small class="capitalized">{{ item.name }}</small> -->
             </f7-link>
           </div>
-          <!-- <div class="col-25">
-          <f7-link>
-            <img src="../assets/kategori/image4.png" alt="" />
-          </f7-link>
-        </div>
-        <div class="col-25">
-          <f7-link>
-            <img src="../assets/kategori/image5.png" alt="" />
-          </f7-link>
-        </div>
-        <div class="col-25">
-          <f7-link>
-            <img src="../assets/kategori/image6.png" alt="" />
-          </f7-link>
-        </div>
-        <div class="col">
-          <f7-link>
-            <img src="../assets/kategori/image7.png" alt="" />
-          </f7-link>
-        </div>
-        <div class="col">
-          <f7-link>
-            <img src="../assets/kategori/image8.png" alt="" />
-          </f7-link>
-        </div>
-        <div class="col">
-          <f7-link>
-            <img src="../assets/kategori/image9.png" alt="" />
-          </f7-link>
-        </div>
-        <div class="col">
-          <f7-link>
-            <img src="../assets/kategori/image10.png" alt="" />
-          </f7-link>
-        </div> -->
-        </div>
+         </div>
       </f7-block>
+      </f7-row >
       <f7-block-title>Produk Terbaru</f7-block-title>
       <f7-block>
         <div class="row">
