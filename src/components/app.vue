@@ -129,3 +129,12 @@ export default {
   },
 };
 </script>
+<style>
+html {
+  background-color: #000000;
+}
+body {
+  max-width: 30rem !important;
+  margin: 0 auto !important;
+}
+</style>
