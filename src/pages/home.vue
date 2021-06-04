@@ -15,7 +15,7 @@
         ></f7-searchbar>
       </f7-nav-title>
       <f7-nav-right>
-        <f7-link icon-f7="cart_fill" color="gray"></f7-link>
+        <f7-link href="/cart" icon-f7="cart_fill" color="gray"></f7-link>
         <f7-link icon-f7="person_fill" color="gray"></f7-link>
       </f7-nav-right>
     </f7-navbar>

@@ -89,7 +89,6 @@ export default {
   },
   mounted() {
     this.getProduct();
-    console.log(this.f7route.params.id);
   },
 };
 </script>
